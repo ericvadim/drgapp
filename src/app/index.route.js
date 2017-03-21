@@ -7,8 +7,8 @@
 
     /** @ngInject */
     function routerConfig($stateProvider, $urlRouterProvider) {
-        var nn = new Date();
-        if (nn.getTime() < 1489100400000) {
+        // var nn = new Date();
+        // if (nn.getTime() < 1489100400000) {
             $stateProvider
                 .state('home', {
                     url: '/',
@@ -41,7 +41,7 @@
                     controller: 'AdminController',
                     controllerAs: 'vm'
                 });
-        }
+        // }
 
         $urlRouterProvider.otherwise('/');
 
