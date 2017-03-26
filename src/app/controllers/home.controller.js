@@ -6,10 +6,15 @@
         .controller('HomeController', HomeController);
 
     /** @ngInject */
-    function HomeController($state) {
+    function HomeController($state, $rootScope) {
         var vm = this;
-        vm.langInd = 0;
-        vm.languages = ["Choose language ...", "English", "Spanish", "French", "German", "Japanese", "Korean", "Chinese", "Russian", "Hindi", "Dutch"];
+        vm.langInd = localStorage.lang || 0;
+
+        vm.chooseLanguage = function () {
+            $rootScope.langInd = vm.langInd;
+            localStorage.lang = vm.langInd;
+            vm.openFoodlist();
+        };
 
         vm.openFoodlist = function () {
             $state.go('categories');

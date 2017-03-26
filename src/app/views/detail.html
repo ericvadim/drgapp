@@ -9,7 +9,7 @@
                                class="form-control"
                                ng-model="vm.keyword"
                                ng-keyup="vm.onKeyUp()"
-                               placeholder="Search for...">
+                               placeholder="{{translate('Search for...')}}">
                         <span class="input-group-btn">
                             <button class="btn btn-primary"
                                     type="button"
@@ -66,14 +66,14 @@
                                         <div class="row height-3">
                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 block-cell url-div">
                                                 <div class="bordered buttons-div">
-                                                    <button class="btn btn-primary btn-rect col-sm-12 col-md-12 col-lg-12">Order Now</button>
+                                                    <button class="btn btn-primary btn-rect col-sm-12 col-md-12 col-lg-12">{{translate('Order Now')}}</button>
                                                 </div>
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 block-cell url-div">
                                                 <div class="bordered buttons-div">
                                                     <button ng-click="vm.openDelivery(vm.data.delivery_website)"
                                                             class="btn btn-info btn-rect reservation-btn col-sm-12 col-md-12 col-lg-12 ng-binding">
-                                                        {{ vm.data.rest_type == 0 ? 'Order Delivery' : 'Reservation'}}
+                                                        {{translate(vm.data.rest_type == 0 ? 'Order Delivery' : 'Reservation')}}
                                                     </button>
                                                 </div>
                                             </div>

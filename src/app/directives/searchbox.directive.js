@@ -9,7 +9,7 @@
             directive.restrict = 'E';
 
             directive.template = '<div class="input-group search-box">';
-            directive.template += '<input type="text" class="form-control" placeholder="Search for...">';
+            directive.template += '<input type="text" class="form-control" placeholder="">';
             directive.template += '<span class="input-group-btn">';
             directive.template += '<button class="btn btn-primary" type="button"><i class="glyphicon glyphicon-search"></i></button>';
             directive.template += '</span>';

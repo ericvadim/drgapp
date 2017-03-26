@@ -6,7 +6,7 @@
         .controller('CategoriesController', CategoriesController);
 
     /** @ngInject */
-    function CategoriesController($state, $http, $window, ServerURL) {
+    function CategoriesController($state, $http, ServerURL) {
         var vm = this;
         vm.keyword = "";
 
@@ -35,7 +35,7 @@
         };
 
         vm.goBack = function () {
-            $window.history.back();
+            $state.go('home');
         };
     }
 })();
