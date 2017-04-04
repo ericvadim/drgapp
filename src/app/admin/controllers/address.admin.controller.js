@@ -99,7 +99,7 @@
         };
     }
 
-    function AddressModalController(pvm) {
+    function AddressModalController(pvm, $timeout) {
         var vm = this;
         vm.data = {};
         vm.location = {
@@ -137,6 +137,9 @@
             pvm.modal.close();
         };
 
+        $timeout(function () {
+            $('.pac-container').css({zIndex: 2000})
+        }, 1000);
     }
 })();
 
