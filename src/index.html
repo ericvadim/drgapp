@@ -1,6 +1,6 @@
 <!doctype html>
 <html ng-app="app">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>DRG APP</title>
     <meta name="description" content="">
@@ -19,39 +19,107 @@
     <!-- endinject -->
     <!-- endbuild -->
 
-  </head>
-  <body>
-    <!--[if lt IE 10]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+</head>
+<body>
+<!--[if lt IE 10]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
-    <div ui-view></div>
+<div ui-view></div>
 
-    <footer>
-      <div class="copyright-div">
+<footer>
+    <div class="copyright-div">
         <a href="http://hotel.dtgapp.com/tac.html" target="_blank">{{translate('Terms And Conditions')}}</a> |
         <a href="#">{{translate('Home')}}</a> |
         <a href="http://hotel.dtgapp.com/privacyPolicy.html" target="_blank">{{translate('Privacy Policy')}}</a>
-      </div>
-    </footer>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj-yMAu4a6uMZHVjw-RBf0sX1lTV2kM7g&libraries=places"></script>
+    </div>
+</footer>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj-yMAu4a6uMZHVjw-RBf0sX1lTV2kM7g&libraries=places"></script>
 
-    <!-- build:js(src) scripts/vendor.js -->
-    <!-- bower:js -->
-    <!-- run `gulp inject` to automatically populate bower script dependencies -->
-    <!-- endbower -->
-    <!-- endbuild -->
+<!-- build:js(src) scripts/vendor.js -->
+<!-- bower:js -->
+<!-- run `gulp inject` to automatically populate bower script dependencies -->
+<!-- endbower -->
+<!-- endbuild -->
 
-    <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
-    <!-- inject:js -->
-    <!-- js files will be automatically insert here -->
-    <!-- endinject -->
+<!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
+<!-- inject:js -->
+<!-- js files will be automatically insert here -->
+<!-- endinject -->
 
-    <!-- inject:partials -->
-    <!-- angular templates will be automatically converted in js and inserted here -->
-    <!-- endinject -->
-    <!-- endbuild -->
+<!-- inject:partials -->
+<!-- angular templates will be automatically converted in js and inserted here -->
+<!-- endinject -->
+<!-- endbuild -->
 
 
-  </body>
+<script src="http://vjs.zencdn.net/4.7.1/video.js"></script>
+<!--<script src="vid/lib/videojs-contrib-ads/videojs.ads.js"></script>
+<script src="vid/lib/vast-client.js"></script>
+<script src="vid/videojs.vast.js"></script>-->
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var frameLinks = [];
+        var frameImages = [
+            "assets/images/ads/groupon/Groupon-AmericanFood-Ad-01.jpg",
+            "assets/images/ads/groupon/Groupon-Asian-Food-Ad-01.jpg",
+            "assets/images/ads/groupon/Groupon-European-Food-Ad-1307.jpg",
+            "assets/images/ads/groupon/Groupon-Latin-Food-Ad-1307.jpg",
+            "assets/images/ads/groupon/Groupon-MainCategory-Food-Ad-1307.jpg"
+        ];
+        var j = 0;
+        $.ajax({
+            url: "getGrouponAdv.php",
+            dataType: "json",
+            success: function (result) {
+                $(result.deals).each(function (key, val) {
+                    frameLinks.push(val.dealUrl.toString());
+                });
+                advertiseInit();
+            }
+        });
+        function advertiseInit() {
+            if (document.getElementById("pageMainBanner") != undefined) {
+                document.getElementById("pageMainBanner").href = frameLinks[4];
+            }
+            if (document.getElementById("frameBannerLink") != undefined) {
+                var renewFrame = setInterval(function () {
+                    if (frameImages.length == j) {
+                        j = 0;
+                    } else {
+                        document.getElementById("frameBannerImage").src = frameImages[j];
+                        document.getElementById("frameBannerLink").href = frameLinks[j];
+                        j++;
+                    }
+                }, 5000);
+            }
+        }
+
+
+        if (document.getElementById("tremorAdv") != undefined) {
+            var tremor = videojs("tremorAdv");
+            tremor.muted(true);
+            tremor.ads({
+                timeout: 8000
+            });
+            var waitTime = 150;
+
+
+            setTimeout(function () {
+                //var tmUrl = $("#tremorAdv").find("source").attr("src");
+
+                // Resume play if the element if is paused.
+                if (tremor.paused) {
+                    tremor.vast({
+                        skip: -1,
+                        url: "http://fp31r.ads.tremorhub.com/ad/tag?adCode=m523r-uxl0e&playerWidth=550&playerHeight=300&mediaId=DRGAPP&mediaTitle=DRGAPP%20Testing&mediaDesc=DRGAPP%20Testing%20URL&mediaUrl=http://drgapp.com/&srcPageUrl=http://drgapp.com/&t=" + arg
+                    }).play();
+                }
+            }, waitTime);
+        }
+
+    });
+</script>
+</body>
 </html>

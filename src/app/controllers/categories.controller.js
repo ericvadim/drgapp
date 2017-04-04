@@ -37,5 +37,6 @@
         vm.goBack = function () {
             $state.go('home');
         };
+
     }
 })();

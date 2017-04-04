@@ -36,8 +36,11 @@
             "Privacy Policy": ["Privacy Policy", "Política de privacidad", "Politique de confidentialité", "Datenschutz-Bestimmungen", "個人情報保護方針", "개인 정보 정책", "隐私政策", "Политика Конфиденциальности", "गोपनीयता नीति", "Privacybeleid"]
         };
         $rootScope.translate = function (word) {
-            var val = Sentences[word][$rootScope.langInd] || word;
-            return val == "" ? word : val;
+            var val = word;
+            if (typeof Sentences[word] == 'object') {
+                val = Sentences[word][$rootScope.langInd] || word;
+            }
+            return val;
         }
     }
 
