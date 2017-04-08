@@ -3,30 +3,31 @@
 
     angular
         .module('app')
-        .directive('searchBox', function () {
-            var directive = {};
-
-            directive.restrict = 'E';
-
-            directive.template = '<div class="input-group search-box">';
-            directive.template += '<input type="text" class="form-control" placeholder="">';
-            directive.template += '<span class="input-group-btn">';
-            directive.template += '<button class="btn btn-primary" type="button"><i class="glyphicon glyphicon-search"></i></button>';
-            directive.template += '</span>';
-            directive.template += '</div>';
-
-
-            directive.scope = {
-                keyword: "=keyword"
-            }
-
-            directive.compile = function (/*element, attributes*/) {
-                // element.css("border", "1px solid #cccccc");
-
-                return function (/*$scope, element, attributes*/) {
-                    // element.css("background-color", "#ff00ff");
+        .directive('searchBox', function ($state, $window, $timeout) {
+            return {
+                template: '<div class="input-group search-box">' +
+                '<input type="text" class="form-control" id="keyword-box" ng-keyup="keyUp()" placeholder="{{translate(\'Search for...\')}}" ng-model="q">' +
+                '<span class="input-group-btn">' +
+                '<button class="btn btn-primary" type="button" ng-click="search();"><i class="glyphicon glyphicon-search"></i></button>' +
+                '</span>' +
+                '</div>',
+                scope: {
+                    keyword: "=keyword"
+                },
+                link: function (scope) {
+                    scope.q = scope.keyword;
+                    scope.keyUp = function () {
+                        if (event.keyCode == 13) {
+                            scope.search();
+                        }
+                    };
+                    scope.search = function () {
+                        $state.go('restaurants', {'q': scope.q});
+                        $timeout(function () {
+                            $window.document.getElementById("keyword-box").focus();
+                        }, 100);
+                    };
                 }
-            }
-            return directive;
+            };
         });
 })();

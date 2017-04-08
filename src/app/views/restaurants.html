@@ -4,17 +4,7 @@
             <div class="row search-box-row text-center">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <img ng-click="vm.goBack()" class="back-btn" ng-src="./assets/images/back-btn.png">
-                    <!--<search-box></search-box>-->
-                    <div class="input-group search-box">
-                        <input type="text" class="form-control" ng-model="vm.keyword" ng-keyup="vm.onKeyUp()" placeholder="{{translate('Search for...')}}">
-                        <span class="input-group-btn">
-                        <button class="btn btn-primary"
-                                type="button"
-                                ng-click="vm.getData()">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </span>
-                    </div>
+                    <search-box keyword="vm.keyword"></search-box>
                 </div>
             </div>
         </div>

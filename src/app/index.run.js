@@ -20,6 +20,7 @@
             "Dutch"
         ];
         $rootScope.langInd = localStorage.lang || 0;
+
         var Sentences = {
             "American": ["American", "Americano", "Américain", "Amerikanisch", "アメリカ人", "미국 사람", "美国人", "Американская", "अमेरिकन", "Amerikaans"],
             "European": ["European", "Europeo", "Européen", "Europäisch", "ヨーロッパ人", "유럽 사람", "欧洲", "Европейский", "यूरोपीय", "Europese"],

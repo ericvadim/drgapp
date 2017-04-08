@@ -24,7 +24,37 @@ class Restaurant_model extends CI_Model
 
     public function getRestaurantSearch($categoryId, $keyword, $lat, $lng)
     {
-        $where = $categoryId == '' ? '' : ' AND B.category_id = "' . $categoryId . '" ';
+        $keyword = str_replace("'", "", $keyword);
+        $keyword = str_replace(" ", "^", $keyword);
+        $keyword = str_replace(".", "^", $keyword);
+        $keyword = str_replace(",", "^", $keyword);
+        $keywords = explode("^", $keyword);
+
+        $where = '';
+        if (sizeof($keywords)) {
+            foreach ($keywords as $key => $keyword) {
+                if ($keyword == '') continue;
+                $where .= $where == '' ? '(' : ' OR ';
+                $where .= 'REPLACE(CONCAT_WS(" ", A.address, A.city, B.restaurant_name, B.write_up), "\'", "") LIKE "%' . $keyword . '%"';
+            }
+            if ($where != '') $where .= ') AND ';
+        }
+
+        if ($categoryId == '') {
+            $CI =& get_instance();
+            $CI->load->model('category_model');
+            $categories = $CI->category_model->getCategories();
+            $categoryIds = array();
+            if (sizeof($categories)) {
+                foreach ($categories as $category) {
+                    $categoryIds[] = $category->id;
+                }
+                $where .= '(B.category_id IN (' . implode(",", $categoryIds) . '))';
+            }
+        } else {
+            $where .= '(B.category_id = ' . $categoryId . ')';
+        }
+
         $query = '
             SELECT B.id AS restaurant_id, B.restaurant_name, B.category_id, C.comment AS category_link, 
                 A.id, A.address, 
@@ -32,8 +62,7 @@ class Restaurant_model extends CI_Model
             FROM addresses AS A 
             LEFT OUTER JOIN restaurants AS B ON A.restaurant_id=B.id 
             LEFT OUTER JOIN categories AS C ON B.category_id=C.id 
-            WHERE CONCAT_WS("", A.address, A.city, B.restaurant_name, B.write_up) LIKE "%' . $keyword . '%" 
-                ' . $where . '
+            WHERE ' . $where . '
             ORDER BY distance 
             LIMIT 0, 42 
         ';
@@ -58,14 +87,14 @@ class Restaurant_model extends CI_Model
         } else {
             $result = $this->db->insert($this->table, $row);
             $rowId = $this->db->insert_id();
-            
+
             $CI =& get_instance();
-	    $CI->load->model('address_model');
-	    $CI->address_model->saveAddress(array(
-	    	'id'=>NULL, 
-	    	'restaurant_id'=>$rowId, 
-	    	'address'=>$row['restaurant_name'] . '(temp)')
-	    );
+            $CI->load->model('address_model');
+            $CI->address_model->saveAddress(array(
+                    'id' => NULL,
+                    'restaurant_id' => $rowId,
+                    'address' => $row['restaurant_name'] . '(temp)')
+            );
         }
 
         if (isset($data['image'])) {
