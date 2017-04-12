@@ -34,19 +34,19 @@
             <div class="row text-center height-45p">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 height-1 video-wrapper">
                     <a ng-href="https://www.lyft.com/invited/xudera" target="_blank">
-                        <img class="ads-image" ng-src="./assets/images/ads/7.jpg">
+                        <img class="ads-image" ng-src="{{vm.staticImages[0]}}">
                     </a>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 height-1">
                     <a ng-href="{{vm.categoryLink}}" target="_blank">
-                        <img class="ads-image" ng-src="./assets/images/ads/5.jpg">
+                        <img class="ads-image" ng-src="{{vm.staticImages[1]}}">
                     </a>
                 </div>
             </div>
             <div class="row text-center height-55p">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 height-1">
                     <a ng-href="{{vm.categoryLink}}" target="_blank">
-                        <img class="ads-image" ng-src="./assets/images/ads/1.jpg">
+                        <img class="ads-image" ng-src="{{vm.dynamicImages[vm.imageInd]}}">
                     </a>
                 </div>
             </div>

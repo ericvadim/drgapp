@@ -6,11 +6,14 @@
         .controller('CategoriesController', CategoriesController);
 
     /** @ngInject */
-    function CategoriesController($state, $http, ServerURL) {
+    function CategoriesController($state, $http, ServerURL, $interval) {
         var vm = this;
         vm.keyword = "";
-
+        vm.staticImages = [];
+        vm.dynamicImages = [];
+        vm.imageInd = 0;
         vm.foodcates = {};
+
         vm.getCategories = function () {
             $http.get(ServerURL + "categories/getcategories").then(function (response) {
                 vm.foodcates = response.data;
@@ -18,7 +21,13 @@
         };
         vm.getCategories();
 
-
+        vm.getMainImages = function () {
+            $http.get(ServerURL + "settings/getmainads").then(function (response) {
+                vm.staticImages = response.data['static'];
+                vm.dynamicImages = response.data['dynamic'];
+            });
+        };
+        vm.getMainImages();
 
         vm.ads = [1, 2, 3];
 
@@ -40,7 +49,12 @@
             $state.go('home');
         };
 
-
-
+        $interval(function () {
+            if (vm.imageInd >= 2) {
+                vm.imageInd = 0;
+            } else {
+                vm.imageInd++;
+            }
+        }, 10000);
     }
 })();
