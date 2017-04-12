@@ -18,6 +18,8 @@
         };
         vm.getCategories();
 
+
+
         vm.ads = [1, 2, 3];
 
         vm.openRestaurants = function (categoryId) {

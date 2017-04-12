@@ -42,7 +42,7 @@
                     controllerAs: 'vm'
                 })
                 .state('admin.main', {
-                    url: '/admin/main',
+                    url: '/main',
                     views: {
                         "tabContent": {
                             templateUrl: 'app/admin/views/main.admin.html',
@@ -52,7 +52,7 @@
                     }
                 })
                 .state('admin.category', {
-                    url: '/admin/category',
+                    url: '/category',
                     views: {
                         "tabContent": {
                             templateUrl: 'app/admin/views/category.admin.html',
@@ -62,7 +62,7 @@
                     }
                 })
                 .state('admin.restaurant', {
-                    url: '/admin/restaurant',
+                    url: '/restaurant',
                     views: {
                         "tabContent": {
                             templateUrl: 'app/admin/views/restaurant.admin.html',
@@ -72,7 +72,7 @@
                     }
                 })
                 .state('admin.address', {
-                    url: '/admin/address',
+                    url: '/address',
                     views: {
                         "tabContent": {
                             templateUrl: 'app/admin/views/address.admin.html',
@@ -82,7 +82,7 @@
                     }
                 })
                 .state('admin.ads', {
-                    url: '/admin/ads',
+                    url: '/ads',
                     views: {
                         "tabContent": {
                             templateUrl: 'app/admin/views/ads.admin.html',
