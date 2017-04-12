@@ -40,7 +40,57 @@
                     templateUrl: 'app/admin/views/admin.html',
                     controller: 'AdminController',
                     controllerAs: 'vm'
-                });
+                })
+                .state('admin.main', {
+                    url: '/admin/main',
+                    views: {
+                        "tabContent": {
+                            templateUrl: 'app/admin/views/main.admin.html',
+                            controller: 'MainAdminController',
+                            controllerAs: 'vm'
+                        }
+                    }
+                })
+                .state('admin.category', {
+                    url: '/admin/category',
+                    views: {
+                        "tabContent": {
+                            templateUrl: 'app/admin/views/category.admin.html',
+                            controller: 'CategoryAdminController',
+                            controllerAs: 'vm'
+                        }
+                    }
+                })
+                .state('admin.restaurant', {
+                    url: '/admin/restaurant',
+                    views: {
+                        "tabContent": {
+                            templateUrl: 'app/admin/views/restaurant.admin.html',
+                            controller: 'RestaurantAdminController',
+                            controllerAs: 'vm'
+                        }
+                    }
+                })
+                .state('admin.address', {
+                    url: '/admin/address',
+                    views: {
+                        "tabContent": {
+                            templateUrl: 'app/admin/views/address.admin.html',
+                            controller: 'AddressAdminController',
+                            controllerAs: 'vm'
+                        }
+                    }
+                })
+                .state('admin.ads', {
+                    url: '/admin/ads',
+                    views: {
+                        "tabContent": {
+                            templateUrl: 'app/admin/views/ads.admin.html',
+                            controller: 'AdsAdminController',
+                            controllerAs: 'vm'
+                        }
+                    }
+                })
         // }
 
         $urlRouterProvider.otherwise('/');

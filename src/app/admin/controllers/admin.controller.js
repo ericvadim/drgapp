@@ -6,18 +6,20 @@
         .controller('AdminController', AdminController);
 
     /** @ngInject */
-    function AdminController($rootScope) {
+    function AdminController($state, $filter) {
         var vm = this;
 
         vm.tabs = [
-            {"id": "categories", "heading": "Categories", "active": true, "template": "app/admin/views/category.admin.html"},
-            {"id": "restaurants", "heading": "Restaurants", "active": false, "template": "app/admin/views/restaurant.admin.html"},
-            {"id": "address", "heading": "Addresses", "active": false, "template": "app/admin/views/address.admin.html"},
-            {"id": "ads", "heading": "Advertisements", "active": false, "template": "app/admin/views/ads.admin.html"}
+            {id: "main", heading: "Main Settings", active: true},
+            {id: "category", heading: "Categories"},
+            {id: "restaurant", heading: "Restaurants"},
+            {id: "address", heading: "Addresses"},
+            {id: "ads", heading: "Advertisements"}
         ];
 
-        vm.onTabSelect = function (tabId) {
-            $rootScope.activedTab = tabId;
+        vm.selectTab = function (tab) {
+            $state.go("admin." + tab.id);
         };
+        vm.selectTab($filter('filter')(vm.tabs, {active:true}, true)[0]);
     }
 })();

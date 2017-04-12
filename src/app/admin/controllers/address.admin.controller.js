@@ -138,7 +138,7 @@
         };
 
         $timeout(function () {
-            $('.pac-container').css({zIndex: 2000})
+            angular.element('.pac-container').css({zIndex: 2000});
         }, 1000);
     }
 })();

@@ -4,8 +4,8 @@
                 ng-repeat="tab in vm.tabs"
                 heading="{{tab.heading}}"
                 active="tab.active"
-                select="vm.onTabSelect(tab.id)">
-            <div ng-include="tab.template"></div>
+                select="vm.selectTab(tab)">
+            <div ui-view="tabContent"></div>
         </uib-tab>
     </uib-tabset>
 </div>
