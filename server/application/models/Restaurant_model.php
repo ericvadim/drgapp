@@ -40,7 +40,7 @@ class Restaurant_model extends CI_Model
             if ($where != '') $where .= ') AND ';
         }
 
-        if ($categoryId == '') {
+//        if ($categoryId == '') {
             $CI =& get_instance();
             $CI->load->model('category_model');
             $categories = $CI->category_model->getCategories();
@@ -51,14 +51,28 @@ class Restaurant_model extends CI_Model
                 }
                 $where .= '(B.category_id IN (' . implode(",", $categoryIds) . '))';
             }
-        } else {
-            $where .= '(B.category_id = ' . $categoryId . ')';
-        }
+//        } else {
+//            $where .= '(B.category_id = ' . $categoryId . ')';
+//        }
 
-        $query = '
+        /*$query = '
             SELECT B.id AS restaurant_id, B.restaurant_name, B.category_id, C.comment AS category_link, 
                 A.id, A.address, 
                 111.1111 * DEGREES(ACOS(COS(RADIANS(lat))* COS(RADIANS(' . $lat . '))* COS(RADIANS(lng - ' . $lng . '))+ SIN(RADIANS(lat))* SIN(RADIANS(' . $lat . ')))) AS distance  
+            FROM addresses AS A 
+            LEFT OUTER JOIN restaurants AS B ON A.restaurant_id=B.id 
+            LEFT OUTER JOIN categories AS C ON B.category_id=C.id 
+            WHERE ' . $where . '
+            ORDER BY distance 
+            LIMIT 0, 42 
+        ';*/
+        $query = '
+            SELECT B.id AS restaurant_id, B.restaurant_name, B.category_id, C.comment AS category_link, 
+                A.id, A.address, 
+                
+                (((acos(sin((' . $lat . ' * pi() / 180)) * sin((lat * pi() / 180)) + cos((' . $lat . ' * pi() / 180)) * cos((lat * pi() / 180)) * cos(((' . $lng . ' - lng) * pi() / 180)))) * 180 / pi()) * 60 * 1.1515) AS distance
+                
+            
             FROM addresses AS A 
             LEFT OUTER JOIN restaurants AS B ON A.restaurant_id=B.id 
             LEFT OUTER JOIN categories AS C ON B.category_id=C.id 
